@@ -1,8 +1,7 @@
 # Deployment Information
 
 ## Public URL
-https://vgu-buddy-agent-production.up.railway.app
-*(Note: Replace the URL above with your actual generated domain from Railway or Render)*
+https://accomplished-dream-production-2ae1.up.railway.app
 
 ## Platform
 Railway
@@ -11,24 +10,26 @@ Railway
 
 ### Health Check
 ```bash
-curl https://vgu-buddy-agent-production.up.railway.app/health
+curl https://accomplished-dream-production-2ae1.up.railway.app/health
 # Expected: {"status": "ok", "app": "Study Buddy - VGU", "version": "1.0.0", ...}
 ```
 
 ### API Test (with authentication)
+
+testing X-API-KEY = my-secret-key-change-in-production
 ```bash
-curl -X POST https://vgu-buddy-agent-production.up.railway.app/ask \
-  -H "X-API-Key: YOUR_KEY" \
+curl -X POST https://accomplished-dream-production-2ae1.up.railway.app/ask \
+  -H "X-API-Key: my-secret-key-change-in-production" \
   -H "Content-Type: application/json" \
-  -d '{"session_id": "test", "question": "Hello"}'
+  -d '{"session_id": "test", "question": "Ngành CSE có bao nhiêu môn toán"}'
 ```
 
 ### Rate Limiting Test (10 req/min)
 ```bash
 for i in {1..15}; do 
-  curl -H "X-API-Key: YOUR_KEY" \
+  curl -H "X-API-Key: my-secret-key-change-in-production" \
        -H "Content-Type: application/json" \
-       -X POST https://vgu-buddy-agent-production.up.railway.app/ask \
+       -X POST https://accomplished-dream-production-2ae1.up.railway.app/ask \
        -d '{"session_id":"test","question":"test '"$i"'"}'; 
   echo "";
 done
@@ -46,7 +47,7 @@ done
 - `RATE_LIMIT_PER_MINUTE` (= 10)
 
 ## Screenshots
-Please create a `screenshots/` folder and add your images there before submitting:
+
 - [Deployment dashboard](screenshots/dashboard.png)
 - [Service running](screenshots/running.png)
 - [Test results](screenshots/test.png)
