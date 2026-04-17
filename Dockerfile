@@ -28,10 +28,9 @@ USER appuser
 ENV PATH=/home/appuser/.local/bin:$PATH
 ENV PYTHONPATH=/app
 
+# Railway provides PORT environment variable dynamically
 EXPOSE 8000
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')" || exit 1
-
+# Use Railway native healthcheck instead of Docker HEALTHCHECK
 # Single worker on Railway (limited memory); scale via Railway replicas
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

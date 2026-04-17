@@ -69,7 +69,10 @@ async def lifespan(app: FastAPI):
         "storage": storage_backend(),
     }))
 
-    build_vectorstore()  # pre-build FAISS index regardless of Gemini availability
+    try:
+        build_vectorstore()  # pre-build FAISS index regardless of Gemini availability
+    except Exception as e:
+        logger.error(json.dumps({"event": "error", "msg": f"Failed to build vectorstore on startup: {str(e)}"}))
 
     if not settings.gemini_api_key:
         logger.warning(json.dumps({"event": "warn", "msg": "GEMINI_API_KEY not set — /ask will fail"}))
