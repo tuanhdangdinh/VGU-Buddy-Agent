@@ -9,11 +9,9 @@ langgraph
 langgraph-prebuilt
 langchain-google-genai
 langchain-community
-langchain-huggingface
 langchain-text-splitters
 google-genai
 
 # RAG
 faiss-cpu
-sentence-transformers
 pypdf
