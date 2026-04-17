@@ -14,6 +14,7 @@ Combines all Day 12 concepts:
 """
 import sys
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import json
@@ -42,7 +43,7 @@ from app.agent.graph import run_agent
 from app.agent.rag import build_vectorstore, is_vectorstore_ready
 from app.auth import verify_api_key
 from app.config import settings
-from app.cost_guard import check_budget, get_daily_cost, record_cost
+from app.cost_guard import check_budget, get_monthly_cost, record_cost
 from app.rate_limiter import check_rate_limit
 from app.session import append_message, load_history, new_session_id, storage_backend
 
@@ -167,7 +168,7 @@ async def ask_agent(
         "turn": turn,
         "input_tokens": input_tokens,
         "output_tokens": output_tokens,
-        "daily_cost_usd": get_daily_cost(),
+        "monthly_cost_usd": get_monthly_cost(),
     }))
 
     return AskResponse(

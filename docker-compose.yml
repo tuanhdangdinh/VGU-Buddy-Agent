@@ -10,8 +10,8 @@ services:
       - APP_NAME=Study Buddy - VGU
       - LLM_MODEL=gemini-2.0-flash
       - REDIS_URL=redis://redis:6379/0
-      - RATE_LIMIT_PER_MINUTE=20
-      - DAILY_BUDGET_USD=5.0
+      - RATE_LIMIT_PER_MINUTE=10
+      - MONTHLY_BUDGET_USD=10.0
     env_file:
       - .env.local
     depends_on:

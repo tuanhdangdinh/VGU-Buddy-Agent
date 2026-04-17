@@ -1,6 +1,28 @@
-.env.local
-.env
-__pycache__
-*.pyc
-*.pyo
 .git
+.gitignore
+.dockerignore
+
+# Environments
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Project specific (Let the container build its own cache)
+data/faiss_cache/
