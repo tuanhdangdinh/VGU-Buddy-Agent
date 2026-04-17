@@ -17,13 +17,11 @@ RUN groupadd -r appuser && useradd -r -g appuser appuser
 WORKDIR /app
 
 # Copy installed packages from builder
-COPY --from=builder /root/.local /home/appuser/.local
+COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
 
 # Copy application source
-COPY app/ ./app/
-COPY data/ ./data/
-
-RUN chown -R appuser:appuser /app /home/appuser/.local
+COPY --chown=appuser:appuser app/ ./app/
+COPY --chown=appuser:appuser data/ ./data/
 
 USER appuser
 
