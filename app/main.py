@@ -34,6 +34,8 @@ if __name__ == "__main__" and os.environ.get("VGU_RAG_SKIP_VENV_REEXEC") != "1":
         os.environ["VGU_RAG_SKIP_VENV_REEXEC"] = "1"
         os.execv(str(venv_python), [str(venv_python), str(Path(__file__).resolve()), *sys.argv[1:]])
 
+import asyncio
+
 import uvicorn
 from fastapi import Depends, FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -69,13 +71,17 @@ async def lifespan(app: FastAPI):
         "storage": storage_backend(),
     }))
 
-    try:
-        build_vectorstore()  # pre-build FAISS index regardless of Gemini availability
-    except Exception as e:
-        logger.error(json.dumps({"event": "error", "msg": f"Failed to build vectorstore on startup: {str(e)}"}))
-
     if not settings.gemini_api_key:
         logger.warning(json.dumps({"event": "warn", "msg": "GEMINI_API_KEY not set — /ask will fail"}))
+
+    def _build():
+        try:
+            build_vectorstore()
+        except Exception as e:
+            logger.error(json.dumps({"event": "error", "msg": f"Failed to build vectorstore: {str(e)}"}))
+
+    loop = asyncio.get_event_loop()
+    loop.run_in_executor(None, _build)
 
     _is_ready = True
     logger.info(json.dumps({"event": "ready", "vectorstore_ready": is_vectorstore_ready()}))
