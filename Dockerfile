@@ -5,6 +5,9 @@ WORKDIR /build
 
 RUN apt-get update && apt-get install -y gcc g++ && rm -rf /var/lib/apt/lists/*
 
+# Install CPU-only version of PyTorch first to prevent downloading 3GB+ CUDA binaries
+RUN pip install --no-cache-dir --user torch --index-url https://download.pytorch.org/whl/cpu
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
