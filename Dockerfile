@@ -33,4 +33,4 @@ EXPOSE 8000
 
 # Use Railway native healthcheck instead of Docker HEALTHCHECK
 # Single worker on Railway (limited memory); scale via Railway replicas
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
+CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1

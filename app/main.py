@@ -80,8 +80,7 @@ async def lifespan(app: FastAPI):
         except Exception as e:
             logger.error(json.dumps({"event": "error", "msg": f"Failed to build vectorstore: {str(e)}"}))
 
-    loop = asyncio.get_event_loop()
-    loop.run_in_executor(None, _build)
+    asyncio.create_task(asyncio.to_thread(_build))
 
     _is_ready = True
     logger.info(json.dumps({"event": "ready", "vectorstore_ready": is_vectorstore_ready()}))

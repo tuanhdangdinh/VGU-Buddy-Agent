@@ -7,7 +7,10 @@ try:
     import redis as _redis_lib
     from .config import settings
     if settings.redis_url:
-        _redis = _redis_lib.from_url(settings.redis_url, decode_responses=True)
+        _redis = _redis_lib.from_url(
+            settings.redis_url, decode_responses=True,
+            socket_connect_timeout=5, socket_timeout=5,
+        )
         _redis.ping()
         USE_REDIS = True
     else:

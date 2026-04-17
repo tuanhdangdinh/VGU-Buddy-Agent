@@ -141,13 +141,12 @@ def _load_file(path: Path) -> List[Document]:
 
 
 def _source_fingerprint() -> str:
-    """Hash of all handbook filenames + sizes + mtimes. Changes when docs are added/modified."""
+    """Hash of handbook filenames + sizes. Stable across git checkouts (no mtime)."""
     entries = []
     if DATA_DIR.exists():
         for f in sorted(DATA_DIR.glob("*")):
             if f.suffix.lower() in (".pdf", ".md", ".markdown"):
-                stat = f.stat()
-                entries.append(f"{f.name}:{stat.st_size}:{stat.st_mtime}")
+                entries.append(f"{f.name}:{f.stat().st_size}")
     return hashlib.md5("|".join(entries).encode()).hexdigest()
 
 

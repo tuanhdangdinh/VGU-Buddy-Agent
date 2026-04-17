@@ -24,5 +24,4 @@ __pycache__/
 .vscode/
 .idea/
 
-# Project specific (Let the container build its own cache)
-data/faiss_cache/
+# faiss_cache is committed to git and included in the image for fast startup
