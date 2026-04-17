@@ -1,17 +1,19 @@
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
-pydantic==2.8.2
-redis==5.0.8
+fastapi
+uvicorn[standard]
+pydantic
+redis
 
 # LangGraph + LangChain stack
-langchain>=0.3.0
-langgraph>=0.2.73
-langchain-google-genai>=4.2.0
-langchain-community>=0.3.0
-langchain-huggingface>=0.1.2
-langchain-text-splitters>=0.3.0
+langchain
+langgraph
+langgraph-prebuilt
+langchain-google-genai
+langchain-community
+langchain-huggingface
+langchain-text-splitters
+google-genai
 
 # RAG
-faiss-cpu==1.9.0
-sentence-transformers==3.3.1
-pypdf==5.1.0
+faiss-cpu
+sentence-transformers
+pypdf
