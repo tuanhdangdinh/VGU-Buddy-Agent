@@ -25,4 +25,5 @@ ENV PYTHONPATH=/app
 
 EXPOSE 8000
 
-CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1
+# Sử dụng dấu ngoặc kép và ép kiểu shell để biến PORT được Railway nhận diện
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
