@@ -199,7 +199,7 @@ def health():
         "environment": settings.environment,
         "model": settings.llm_model,
         "uptime_seconds": round(time.time() - START_TIME, 1),
-        "daily_cost_usd": get_daily_cost(),
+        "monthly_cost_usd": get_monthly_cost(),
         "storage": storage_backend(),
         "agent_ready": bool(settings.gemini_api_key),
         "vectorstore_ready": is_vectorstore_ready(),
